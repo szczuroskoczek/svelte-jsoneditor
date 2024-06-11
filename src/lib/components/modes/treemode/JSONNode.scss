@@ -72,7 +72,6 @@
   }
 
   .jse-insert-selection-area {
-    visibility: hidden;
     padding: 0 $padding-half;
     flex: 1; // must fill all left over space at the right side of the editor, so you can click there
 
@@ -114,12 +113,6 @@
     &.jse-hovered {
       outline-color: $context-menu-pointer-hover-background;
     }
-  }
-
-  &:hover > .jse-contents-outer .jse-insert-selection-area:not(.jse-selected),
-  .jse-header-outer:hover > .jse-insert-selection-area:not(.jse-selected),
-  .jse-footer-outer:hover .jse-insert-selection-area:not(.jse-selected) {
-    visibility: visible;
   }
 
   &.jse-hovered {

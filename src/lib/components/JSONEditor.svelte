@@ -485,7 +485,9 @@
             {onSortModal}
             {onTransformModal}
             {onJSONEditorModal}
-          />
+          >
+            <slot name="tree-jse" slot="tree-jse" let:at {at} />
+          </JSONEditorRoot>
         {/key}
       </div>
     </Modal>

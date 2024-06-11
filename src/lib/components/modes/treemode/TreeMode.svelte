@@ -2089,7 +2089,9 @@
           selection={documentState.selection}
           {context}
           onDragSelectionStart={noop}
-        />
+        >
+          <slot name="tree-jse" slot="tree-jse" let:at {at} />
+        </JSONNode>
       </div>
 
       {#if pastedJson}

@@ -694,14 +694,18 @@
           class="jse-insert-selection-area jse-inside"
           data-type="insert-selection-area-inside"
           on:click={handleInsertInside}
-        />
+        >
+          <slot name="tree-jse" at="inside" />
+        </div>
       {:else}
         <div
           role="none"
           class="jse-insert-selection-area jse-after"
           data-type="insert-selection-area-after"
           on:click={handleInsertAfter}
-        />
+        >
+          <slot name="tree-jse" at="inside" />
+        </div>
       {/if}
     </div>
     {#if expanded}
@@ -815,14 +819,26 @@
           class="jse-insert-selection-area jse-inside"
           data-type="insert-selection-area-inside"
           on:click={handleInsertInside}
-        />
+        >
+          <slot name="tree-jse" at="inside" />
+        </div>
       {:else if !root}
         <div
           role="none"
           class="jse-insert-selection-area jse-after"
           data-type="insert-selection-area-after"
           on:click={handleInsertAfter}
-        />
+        >
+          <slot name="tree-jse" at="inside" />
+        </div>
+      {:else}
+        <div
+          role="none"
+          class="jse-insert-selection-area jse-after"
+          data-type="insert-selection-area-after"
+        >
+          <slot name="tree-jse" at="inside" />
+        </div>
       {/if}
     </div>
     {#if expanded}
@@ -855,6 +871,7 @@
             {context}
             onDragSelectionStart={handleDragSelectionStart}
           >
+            <slot name="tree-jse" slot="tree-jse" let:at {at} />
             <div slot="identifier" class="jse-identifier">
               <JSONKey
                 path={prop.path}
@@ -912,7 +929,9 @@
           class="jse-insert-selection-area jse-after"
           data-type="insert-selection-area-after"
           on:click={handleInsertAfter}
-        />
+        >
+          <slot name="tree-jse" at="after" />
+        </div>
       {/if}
     </div>
   {/if}
