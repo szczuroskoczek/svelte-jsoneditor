@@ -53,6 +53,12 @@
       <a href="development">Development application</a>
     </li>
   </ul>
+
+  <ul>
+    <li>
+      <a href="development/slot">Slot development</a>
+    </li>
+  </ul>
 </section>
 
 <style>
