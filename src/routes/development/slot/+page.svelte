@@ -22,7 +22,8 @@
     type RenderValueComponentDescription,
     type RenderValuePropsOptional,
     SelectionType,
-    toJSONContent
+    toJSONContent,
+    setRenderCallback
   } from 'svelte-jsoneditor'
   import { useLocalStorage } from '$lib/utils/localStorageUtils.js'
   import { range } from 'lodash-es'
@@ -31,6 +32,7 @@
   import { truncate } from '$lib/utils/stringUtils.js'
   import { parseJSONPath, stringifyJSONPath } from '$lib/utils/pathUtils.js'
   import { compileJSONPointer, isJSONObject, parseJSONPointer } from 'immutable-json-patch'
+  import { writable } from 'svelte/store'
 
   const LosslessJSON = {
     parse,
@@ -480,6 +482,22 @@
     }
     reader.readAsText(file)
   }
+
+  setRenderCallback((el, args) => {
+    // el.style.pointerEvents = 'none'
+    // const container = document.createElement('div')
+    // container.style.pointerEvents = 'auto'
+    // el.appendChild(container)
+
+    const inputBox = document.createElement('input')
+    inputBox.value = args.at
+
+    el.appendChild(inputBox)
+
+    // container.appendChild(inputBox)
+
+    // console.log('rendering')
+  })
 </script>
 
 <svelte:head>
@@ -514,6 +532,4 @@
   {onChangeMode}
   onFocus={() => console.log('onFocus tree')}
   onBlur={() => console.log('onBlur tree', { content: refTreeEditor?.get() })}
->
-  <svelte:fragment slot="tree-jse" let:at>{at}</svelte:fragment>
-</JSONEditor>
+/>

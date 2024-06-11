@@ -622,3 +622,19 @@ export interface SortedColumn {
 export type JSONSchema = Record<string, unknown>
 export type JSONSchemaDefinitions = Record<string, JSONSchema>
 export type JSONSchemaEnum = Array<unknown>
+
+// added renderCallback for custom rendering of the JSONEditor
+
+export interface RenderCallbackProps {
+  at: 'inside' | 'after'
+  path: (string | number)[] | JSONPath
+  expanded: boolean
+}
+
+export type RenderCallbackAction = (
+  el: HTMLDivElement,
+  args: RenderCallbackProps
+) => void | {
+  destroy?: () => void
+  update?: (args: RenderCallbackProps) => void
+}

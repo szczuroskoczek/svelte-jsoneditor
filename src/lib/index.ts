@@ -59,5 +59,8 @@ export { parseJSONPath, stringifyJSONPath } from './utils/pathUtils.js'
 export { resizeObserver } from './actions/resizeObserver.js'
 export { onEscape } from './actions/onEscape.js'
 
+// helpers
+export * from './utils/helpers.js'
+
 // typeguards
 export * from './typeguards.js'

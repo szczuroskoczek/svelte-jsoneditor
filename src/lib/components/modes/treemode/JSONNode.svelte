@@ -61,6 +61,7 @@
     JSONPointerMap,
     JSONSelection,
     NestedValidationError,
+    RenderCallbackAction,
     RenderedItem,
     TreeModeContext,
     VisibleSection
@@ -73,6 +74,7 @@
   import { isObject } from '$lib/utils/typeUtils.js'
   import { classnames } from '$lib/utils/cssUtils.js'
   import { isCtrlKeyDown } from 'svelte-jsoneditor/utils/keyBindings'
+  import { getContext } from 'svelte'
 
   export let value: unknown
   export let path: JSONPath
@@ -615,8 +617,11 @@
     context.onSelect(createAfterSelection(path))
     context.onContextMenu(contextMenuProps)
   }
+
+  const renderCallback = getContext<RenderCallbackAction>('renderCallback')
 </script>
 
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
   role="treeitem"
   tabindex="-1"
@@ -695,7 +700,18 @@
           data-type="insert-selection-area-inside"
           on:click={handleInsertInside}
         >
-          <slot name="tree-jse" at="inside" />
+          {#if typeof renderCallback === 'function'}
+            <div
+              class="jse-render-callback-container"
+              on:mousedown|stopPropagation
+              on:keydown|stopPropagation
+              use:renderCallback={{
+                at: 'inside',
+                path,
+                expanded
+              }}
+            />
+          {/if}
         </div>
       {:else}
         <div
@@ -704,7 +720,18 @@
           data-type="insert-selection-area-after"
           on:click={handleInsertAfter}
         >
-          <slot name="tree-jse" at="inside" />
+          {#if typeof renderCallback === 'function'}
+            <div
+              class="jse-render-callback-container"
+              on:mousedown|stopPropagation
+              on:keydown|stopPropagation
+              use:renderCallback={{
+                at: 'after',
+                path,
+                expanded
+              }}
+            />
+          {/if}
         </div>
       {/if}
     </div>
@@ -820,7 +847,17 @@
           data-type="insert-selection-area-inside"
           on:click={handleInsertInside}
         >
-          <slot name="tree-jse" at="inside" />
+          {#if typeof renderCallback === 'function'}
+            <div
+              class="jse-render-callback-container"
+              on:mousedown|stopPropagation
+              on:keydown|stopPropagation
+              use:renderCallback={{
+                at: 'inside',
+                path,
+                expanded
+              }}
+            />{/if}
         </div>
       {:else if !root}
         <div
@@ -829,7 +866,18 @@
           data-type="insert-selection-area-after"
           on:click={handleInsertAfter}
         >
-          <slot name="tree-jse" at="inside" />
+          {#if typeof renderCallback === 'function'}
+            <div
+              class="jse-render-callback-container"
+              on:mousedown|stopPropagation
+              on:keydown|stopPropagation
+              use:renderCallback={{
+                at: 'after',
+                path,
+                expanded
+              }}
+            />
+          {/if}
         </div>
       {:else}
         <div
@@ -837,7 +885,18 @@
           class="jse-insert-selection-area jse-after"
           data-type="insert-selection-area-after"
         >
-          <slot name="tree-jse" at="inside" />
+          {#if typeof renderCallback === 'function'}
+            <div
+              class="jse-render-callback-container"
+              on:mousedown|stopPropagation
+              on:keydown|stopPropagation
+              use:renderCallback={{
+                at: 'after',
+                path,
+                expanded
+              }}
+            />
+          {/if}
         </div>
       {/if}
     </div>
@@ -871,7 +930,6 @@
             {context}
             onDragSelectionStart={handleDragSelectionStart}
           >
-            <slot name="tree-jse" slot="tree-jse" let:at {at} />
             <div slot="identifier" class="jse-identifier">
               <JSONKey
                 path={prop.path}
@@ -930,7 +988,18 @@
           data-type="insert-selection-area-after"
           on:click={handleInsertAfter}
         >
-          <slot name="tree-jse" at="after" />
+          {#if typeof renderCallback === 'function'}
+            <div
+              class="jse-render-callback-container"
+              on:mousedown|stopPropagation
+              on:keydown|stopPropagation
+              use:renderCallback={{
+                at: 'after',
+                path,
+                expanded
+              }}
+            />
+          {/if}
         </div>
       {/if}
     </div>
