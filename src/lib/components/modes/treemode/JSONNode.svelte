@@ -75,6 +75,7 @@
   import { classnames } from '$lib/utils/cssUtils.js'
   import { isCtrlKeyDown } from 'svelte-jsoneditor/utils/keyBindings'
   import { getContext } from 'svelte'
+  import RenderCallback from './RenderCallback.svelte'
 
   export let value: unknown
   export let path: JSONPath
@@ -700,18 +701,7 @@
           data-type="insert-selection-area-inside"
           on:click={handleInsertInside}
         >
-          {#if typeof renderCallback === 'function'}
-            <div
-              class="jse-render-callback-container"
-              on:mousedown|stopPropagation
-              on:keydown|stopPropagation
-              use:renderCallback={{
-                at: 'inside',
-                path,
-                expanded
-              }}
-            />
-          {/if}
+          <RenderCallback {renderCallback} at="inside" {path} {expanded} />
         </div>
       {:else}
         <div
@@ -720,18 +710,7 @@
           data-type="insert-selection-area-after"
           on:click={handleInsertAfter}
         >
-          {#if typeof renderCallback === 'function'}
-            <div
-              class="jse-render-callback-container"
-              on:mousedown|stopPropagation
-              on:keydown|stopPropagation
-              use:renderCallback={{
-                at: 'after',
-                path,
-                expanded
-              }}
-            />
-          {/if}
+          <RenderCallback {renderCallback} at="after" {path} {expanded} />
         </div>
       {/if}
     </div>
@@ -847,17 +826,7 @@
           data-type="insert-selection-area-inside"
           on:click={handleInsertInside}
         >
-          {#if typeof renderCallback === 'function'}
-            <div
-              class="jse-render-callback-container"
-              on:mousedown|stopPropagation
-              on:keydown|stopPropagation
-              use:renderCallback={{
-                at: 'inside',
-                path,
-                expanded
-              }}
-            />{/if}
+          <RenderCallback {renderCallback} at="inside" {path} {expanded} />
         </div>
       {:else if !root}
         <div
@@ -866,18 +835,7 @@
           data-type="insert-selection-area-after"
           on:click={handleInsertAfter}
         >
-          {#if typeof renderCallback === 'function'}
-            <div
-              class="jse-render-callback-container"
-              on:mousedown|stopPropagation
-              on:keydown|stopPropagation
-              use:renderCallback={{
-                at: 'after',
-                path,
-                expanded
-              }}
-            />
-          {/if}
+          <RenderCallback {renderCallback} at="after" {path} {expanded} />
         </div>
       {:else}
         <div
@@ -885,18 +843,7 @@
           class="jse-insert-selection-area jse-after"
           data-type="insert-selection-area-after"
         >
-          {#if typeof renderCallback === 'function'}
-            <div
-              class="jse-render-callback-container"
-              on:mousedown|stopPropagation
-              on:keydown|stopPropagation
-              use:renderCallback={{
-                at: 'after',
-                path,
-                expanded
-              }}
-            />
-          {/if}
+          <RenderCallback {renderCallback} at="after" {path} {expanded} />
         </div>
       {/if}
     </div>
@@ -988,18 +935,7 @@
           data-type="insert-selection-area-after"
           on:click={handleInsertAfter}
         >
-          {#if typeof renderCallback === 'function'}
-            <div
-              class="jse-render-callback-container"
-              on:mousedown|stopPropagation
-              on:keydown|stopPropagation
-              use:renderCallback={{
-                at: 'after',
-                path,
-                expanded
-              }}
-            />
-          {/if}
+          <RenderCallback {renderCallback} at="after" {path} {expanded} />
         </div>
       {/if}
     </div>
