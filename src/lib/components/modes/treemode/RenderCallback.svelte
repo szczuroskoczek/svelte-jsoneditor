@@ -7,14 +7,16 @@
   export let expanded: boolean = false
 </script>
 
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 {#if typeof renderCallback === 'function'}
-  <!-- svelte-ignore a11y-no-static-element-interactions -->
-  <div
-    class="jse-render-callback-container"
-    use:renderCallback={{
-      at,
-      path,
-      expanded
-    }}
-  />
+  {#key path.join('.')}
+    <div
+      class="jse-render-callback-container"
+      use:renderCallback={{
+        at,
+        path,
+        expanded
+      }}
+    />
+  {/key}
 {/if}

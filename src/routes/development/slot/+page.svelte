@@ -26,7 +26,7 @@
     setRenderCallback
   } from 'svelte-jsoneditor'
   import { useLocalStorage } from '$lib/utils/localStorageUtils.js'
-  import { range } from 'lodash-es'
+  import { random, range } from 'lodash-es'
   import { tick } from 'svelte'
   import { parse, stringify } from 'lossless-json'
   import { truncate } from '$lib/utils/stringUtils.js'
@@ -490,9 +490,14 @@
     // el.appendChild(container)
 
     const inputBox = document.createElement('input')
-    inputBox.value = args.at
+    inputBox.type = 'checkbox'
+    inputBox.checked = +args.path[0] > 0.5
 
     el.appendChild(inputBox)
+
+    el.onclick = (e) => {
+      e.stopPropagation()
+    }
 
     // container.appendChild(inputBox)
 
@@ -503,6 +508,17 @@
 <svelte:head>
   <title>development application | svelte-jsoneditor</title>
 </svelte:head>
+
+<button on:click={() => {
+  content = {
+    json: {
+      [Math.random().toString()]: btoa(Math.random().toString()),
+      ...(content.text ? JSON.parse(content.text)  || {} : content.json || {})
+    }
+  }
+}}>
+  update content
+</button>
 
 <JSONEditor
   bind:this={refTreeEditor}
